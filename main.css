@@ -15,6 +15,10 @@ ul {
   padding: 0;
 }
 
+li {
+  cursor: pointer;
+}
+
 .container {
   display: flex;
   align-items: center;
@@ -48,7 +52,23 @@ ul {
   padding: 0;
 }
 
-.badges-item {
+.badges-item-all {
+  padding: 2px 10px;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.badges-item-completed {
+  padding: 2px 10px;
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.badges-item-uncompleted {
   padding: 2px 10px;
   width: 100%;
   background-color: #fff;

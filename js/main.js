@@ -1,6 +1,7 @@
 let elForm = document.querySelector('.js-form');
 let elInput = document.querySelector('.js-input');
 let elButton = document.querySelector('.js-button');
+let elBadgesGroup = document.querySelector('.badges');
 let badgeAll = document.querySelector('.all-todos');
 let badgeCompleted = document.querySelector('.completed-todos');
 let badgeUncompelted = document.querySelector('.uncompleted-todos');
@@ -9,6 +10,10 @@ let elList = document.querySelector('.js-list');
 let todos = [];
 
 let demonstrateToDo = (array, node) => {
+  badgeAll.textContent = todos.length;
+  badgeUncompelted.textContent = todos.filter(e => !e.isComplete).length;
+  badgeCompleted.textContent = todos.filter(e => e.isComplete).length;
+  node.innerHTML = "";
   
   array.forEach(element => {
     let newItem = document.createElement("li");
@@ -45,15 +50,12 @@ elList.addEventListener("click", function (evt) {
     
     todos.splice(findedIndex, 1);
     demonstrateToDo(todos, elList);
-    badgeAll.textContent = todos.length;
-    badgeUncompelted.textContent = todos.length;
+    // badgeAll.textContent = todos.length;
+    // badgeUncompelted.textContent = todos.filter(e => !e.isComplete).length;
   } else if (evt.target.matches(".todo-check")) {
     let checkedId = evt.target.dataset.todoId;
     elList.innerHTML = "";
     let findedElement = todos.find((todo) => todo.id == checkedId)
-    const filteredTodos = todos.filter(item => item.isComplete === true).length + 1;
-    badgeCompleted.textContent = filteredTodos;
-    badgeUncompelted.textContent = todos.length - filteredTodos;
     
     findedElement.isComplete = !findedElement.isComplete;
     demonstrateToDo(todos, elList);
@@ -76,4 +78,20 @@ elForm.addEventListener('submit', function(evt){
   badgeAll.textContent = todos.length;
   badgeUncompelted.textContent = todos.length;
   
+})
+
+
+
+elBadgesGroup.addEventListener('click', function(evt){
+  if(evt.target.matches('.badges-item-all')){
+    demonstrateToDo(todos,elList)
+  }
+  if(evt.target.matches('.badges-item-completed')){
+    let completedTodo = todos.filter(e => e.isComplete);
+    demonstrateToDo(completedTodo,elList);
+  }
+  if(evt.target.matches('.badges-item-uncompleted')){
+    let uncompletedTodo = todos.filter(e => !e.isComplete);
+    demonstrateToDo(uncompletedTodo,elList)
+  }
 })
